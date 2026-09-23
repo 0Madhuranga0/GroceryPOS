@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="sales_by_product" pageWidth="595" pageHeight="842"
+              columnWidth="535" leftMargin="30" rightMargin="30"
+              topMargin="30" bottomMargin="30" whenNoDataType="AllSectionsNoDetail">
+
+    <parameter name="STORE_NAME"    class="java.lang.String" isForPrompting="false"/>
+    <parameter name="STORE_ADDRESS" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="STORE_PHONE"   class="java.lang.String" isForPrompting="false"/>
+    <parameter name="CURRENCY"      class="java.lang.String" isForPrompting="false"/>
+    <parameter name="P_DATE_FROM"   class="java.lang.String"/>
+    <parameter name="P_DATE_TO"     class="java.lang.String"/>
+
+    <queryString>
+        <![CDATA[
+        SELECT
+            p.barcode,
+            p.name                        AS product_name,
+            c.name                        AS category,
+            SUM(si.quantity)              AS total_qty,
+            si.unit_price,
+            SUM(si.total_price)           AS total_revenue,
+            SUM(si.quantity * p.purchase_price) AS total_cost,
+            SUM(si.total_price) - SUM(si.quantity * p.purchase_price) AS profit
+        FROM   sale_items si
+        JOIN   products p  ON p.id = si.product_id
+        LEFT JOIN categories c ON c.id = p.category_id
+        JOIN   sales s     ON s.id = si.sale_id
+        WHERE  DATE(s.sale_date) BETWEEN $P{P_DATE_FROM} AND $P{P_DATE_TO}
+        AND    s.status = 'COMPLETED'
+        GROUP  BY p.id, p.barcode, p.name, c.name, si.unit_price
+        ORDER  BY total_revenue DESC
+        ]]>
+    </queryString>
+
+    <field name="barcode"        class="java.lang.String"/>
+    <field name="product_name"   class="java.lang.String"/>
+    <field name="category"       class="java.lang.String"/>
+    <field name="total_qty"      class="java.math.BigDecimal"/>
+    <field name="unit_price"     class="java.math.BigDecimal"/>
+    <field name="total_revenue"  class="java.math.BigDecimal"/>
+    <field name="total_cost"     class="java.math.BigDecimal"/>
+    <field name="profit"         class="java.math.BigDecimal"/>
+
+    <variable name="SUM_REVENUE" class="java.math.BigDecimal" calculation="Sum" resetType="Report">
+        <variableExpression><![CDATA[$F{total_revenue}]]></variableExpression>
+        <initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression>
+    </variable>
+    <variable name="SUM_PROFIT" class="java.math.BigDecimal" calculation="Sum" resetType="Report">
+        <variableExpression><![CDATA[$F{profit}]]></variableExpression>
+        <initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression>
+    </variable>
+
+    <title>
+        <band height="76">
+            <textField><reportElement x="0" y="0" width="535" height="22"/>
+                <textElement textAlignment="Center"><font size="15" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{STORE_NAME}]]></textFieldExpression></textField>
+            <staticText><reportElement x="0" y="24" width="535" height="18"/>
+                <textElement textAlignment="Center"><font size="12" isBold="true"/></textElement>
+                <text><![CDATA[Sales by Product Report]]></text></staticText>
+            <textField><reportElement x="0" y="46" width="535" height="14"/>
+                <textElement textAlignment="Center"><font size="9" isItalic="true"/></textElement>
+                <textFieldExpression><![CDATA["Period: " + $P{P_DATE_FROM} + " to " + $P{P_DATE_TO}]]></textFieldExpression></textField>
+            <line><reportElement x="0" y="70" width="535" height="1"/></line>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <rectangle><reportElement x="0" y="0" width="535" height="20" backcolor="#283593"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="0"   y="2" width="130" height="16" forecolor="#FFFFFF"/>
+                <textElement><font isBold="true" size="8"/></textElement><text><![CDATA[Product]]></text></staticText>
+            <staticText><reportElement x="130" y="2" width="90"  height="16" forecolor="#FFFFFF"/>
+                <textElement><font isBold="true" size="8"/></textElement><text><![CDATA[Category]]></text></staticText>
+            <staticText><reportElement x="220" y="2" width="60"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="8"/></textElement><text><![CDATA[Qty Sold]]></text></staticText>
+            <staticText><reportElement x="280" y="2" width="70"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="8"/></textElement><text><![CDATA[Unit Price]]></text></staticText>
+            <staticText><reportElement x="350" y="2" width="80"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="8"/></textElement><text><![CDATA[Revenue]]></text></staticText>
+            <staticText><reportElement x="430" y="2" width="105" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="8"/></textElement><text><![CDATA[Profit]]></text></staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="16">
+            <rectangle><reportElement x="0" y="0" width="535" height="16" backcolor="#EEF0FB" mode="Opaque">
+                <printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression></reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <textField><reportElement x="0"   y="1" width="130" height="14"/>
+                <textElement><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression></textField>
+            <textField><reportElement x="130" y="1" width="90"  height="14"/>
+                <textElement><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{category} != null ? $F{category} : "—"]]></textFieldExpression></textField>
+            <textField pattern="#,##0.000"><reportElement x="220" y="1" width="60" height="14"/>
+                <textElement textAlignment="Right"><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{total_qty}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="280" y="1" width="70" height="14"/>
+                <textElement textAlignment="Right"><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="350" y="1" width="80" height="14"/>
+                <textElement textAlignment="Right"><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="430" y="1" width="105" height="14"/>
+                <textElement textAlignment="Right"><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$F{profit}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="46">
+            <line><reportElement x="0" y="4" width="535" height="1"/></line>
+            <staticText><reportElement x="300" y="10" width="130" height="16"/>
+                <textElement textAlignment="Right"><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Total Revenue:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="430" y="10" width="105" height="16"/>
+                <textElement textAlignment="Right"><font isBold="true" size="11"/></textElement>
+                <textFieldExpression><![CDATA[$V{SUM_REVENUE}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="28" width="130" height="16"/>
+                <textElement textAlignment="Right"><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Total Profit:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="430" y="28" width="105" height="16"/>
+                <textElement textAlignment="Right"><font isBold="true" size="11"/></textElement>
+                <textFieldExpression><![CDATA[$V{SUM_PROFIT}]]></textFieldExpression></textField>
+        </band>
+    </summary>
+
+</jasperReport>

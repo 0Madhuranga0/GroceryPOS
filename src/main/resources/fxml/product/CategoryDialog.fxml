@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.product.CategoryDialogController"
+      spacing="16" prefWidth="420"
+      style="-fx-background-color: white; -fx-padding: 24;">
+
+    <Label fx:id="titleLabel" text="Add Category" styleClass="page-title"/>
+
+    <!-- Error message -->
+    <Label fx:id="errorLabel" text="" wrapText="true"
+           style="-fx-text-fill: #c62828; -fx-font-size: 12px;"
+           visible="false" maxWidth="370"/>
+
+    <!-- Name -->
+    <VBox spacing="4">
+        <Label text="Category Name *" styleClass="login-field-label"/>
+        <TextField fx:id="nameField" promptText="Enter category name"
+                   styleClass="text-field" maxWidth="370"/>
+    </VBox>
+
+    <!-- Description -->
+    <VBox spacing="4">
+        <Label text="Description" styleClass="login-field-label"/>
+        <TextArea fx:id="descriptionField" promptText="Optional description"
+                  prefRowCount="3" maxWidth="370" wrapText="true"/>
+    </VBox>
+
+    <!-- Status -->
+    <VBox spacing="4">
+        <Label text="Status" styleClass="login-field-label"/>
+        <ComboBox fx:id="statusCombo" maxWidth="370"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button fx:id="btnCancel" text="Cancel"
+                styleClass="btn-secondary" onAction="#handleCancel"/>
+        <Button fx:id="btnSave"   text="Save"
+                styleClass="btn-primary" defaultButton="true" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>

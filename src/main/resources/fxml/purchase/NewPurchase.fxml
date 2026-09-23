@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gp.grocerypos.controller.purchase.NewPurchaseController"
+            style="-fx-background-color: #f0f2f5;">
+
+    <!-- ═══ TOP — Header ═══ -->
+    <top>
+        <VBox spacing="16" style="-fx-background-color: white;
+                                  -fx-padding: 20 24 16 24;
+                                  -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),4,0,0,2);">
+            <Label text="New Purchase" styleClass="page-title"/>
+
+            <!-- Supplier + invoice row -->
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <VBox spacing="4" prefWidth="280">
+                    <Label text="SUPPLIER *" styleClass="login-field-label"/>
+                    <ComboBox fx:id="supplierCombo" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="4" prefWidth="200">
+                    <Label text="SUPPLIER INVOICE" styleClass="login-field-label"/>
+                    <TextField fx:id="supplierInvoiceField"
+                               promptText="Supplier's invoice number"
+                               styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="NOTES" styleClass="login-field-label"/>
+                    <TextField fx:id="notesField"
+                               promptText="Optional notes"
+                               styleClass="text-field" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <!-- Error banner -->
+            <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+                   style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                          -fx-background-color: #fdecea; -fx-padding: 8 12;
+                          -fx-background-radius: 4;"/>
+        </VBox>
+    </top>
+
+    <!-- ═══ CENTER — Item entry + cart ═══ -->
+    <center>
+        <VBox spacing="0">
+
+            <!-- Product entry bar -->
+            <HBox spacing="8" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #e8eaf6; -fx-padding: 12 24;">
+                <VBox spacing="2">
+                    <Label text="BARCODE / NAME" styleClass="login-field-label"/>
+                    <TextField fx:id="barcodeField" promptText="Scan barcode or type name"
+                               prefWidth="220" styleClass="text-field"/>
+                </VBox>
+                <Button text="Search" styleClass="btn-secondary"
+                        onAction="#handleSearchProduct"
+                        style="-fx-padding: 10 14; -fx-translate-y: 8;"/>
+                <VBox spacing="2">
+                    <Label fx:id="productNameLabel" text=""
+                           style="-fx-font-size: 13px; -fx-font-weight: bold;
+                                  -fx-min-width: 200;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox spacing="2">
+                    <Label text="QTY *" styleClass="login-field-label"/>
+                    <TextField fx:id="qtyField" promptText="Qty"
+                               prefWidth="80" styleClass="text-field"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="UNIT COST *" styleClass="login-field-label"/>
+                    <TextField fx:id="unitCostField" promptText="0.00"
+                               prefWidth="110" styleClass="text-field"/>
+                </VBox>
+                <Button fx:id="btnAddItem" text="Add Item"
+                        styleClass="btn-primary"
+                        onAction="#handleAddItem"
+                        style="-fx-padding: 10 18; -fx-translate-y: 8;"/>
+                <Button text="Remove" styleClass="btn-danger"
+                        onAction="#handleRemoveItem"
+                        style="-fx-padding: 10 12; -fx-translate-y: 8;"/>
+            </HBox>
+
+            <!-- Cart table -->
+            <TableView fx:id="cartTable" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: white; -fx-padding: 0 24;">
+                <columns>
+                    <TableColumn fx:id="cartColProduct"  text="Product"    prefWidth="280"/>
+                    <TableColumn fx:id="cartColQty"      text="Qty"        prefWidth="80"/>
+                    <TableColumn fx:id="cartColUnit"     text="Unit"       prefWidth="80"/>
+                    <TableColumn fx:id="cartColUnitCost" text="Unit Cost"  prefWidth="120"/>
+                    <TableColumn fx:id="cartColTotal"    text="Total"      prefWidth="130"/>
+                </columns>
+                <placeholder>
+                    <Label text="No items added yet. Search for a product and click Add Item."/>
+                </placeholder>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- ═══ BOTTOM — Totals + buttons ═══ -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="16"
+              style="-fx-background-color: white; -fx-padding: 16 24;
+                     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.06),4,0,-2,0);">
+            <Label text="TOTAL:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label fx:id="totalLabel" text="Rs. 0.00"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;
+                          -fx-text-fill: #1a237e; -fx-min-width: 160;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnCancel" text="Cancel"
+                    styleClass="btn-secondary" onAction="#handleCancel"
+                    style="-fx-padding: 10 24;"/>
+            <Button fx:id="btnSave" text="Save Purchase"
+                    styleClass="btn-success" defaultButton="true"
+                    onAction="#handleSave"
+                    style="-fx-padding: 10 24;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

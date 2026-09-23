@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.dashboard.DashboardController"
+      styleClass="dashboard-root"
+      spacing="24">
+
+    <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+
+    <!-- ── Page header ── -->
+    <VBox spacing="4">
+        <Label fx:id="welcomeLabel" text="Welcome!" styleClass="page-title"/>
+        <Label fx:id="dateLabel"    text=""          styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- ── Stat cards grid (2 rows × 4 cols) ── -->
+    <GridPane hgap="16" vgap="16">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+
+        <!-- Row 0 -->
+        <!-- Today's Sales -->
+        <VBox styleClass="stat-card, stat-card-blue"
+              GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Today's Sales"    styleClass="stat-card-title"/>
+            <Label fx:id="todaySalesLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Today's Transactions -->
+        <VBox styleClass="stat-card, stat-card-green"
+              GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Transactions Today"        styleClass="stat-card-title"/>
+            <Label fx:id="todayTransactionsLabel"   text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Total Products -->
+        <VBox styleClass="stat-card, stat-card-purple"
+              GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Active Products"   styleClass="stat-card-title"/>
+            <Label fx:id="totalProductsLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Active Users -->
+        <VBox styleClass="stat-card, stat-card-teal"
+              GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Active Users"   styleClass="stat-card-title"/>
+            <Label fx:id="activeUsersLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Row 1 -->
+        <!-- Low Stock -->
+        <VBox styleClass="stat-card, stat-card-orange"
+              GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Low Stock Items" styleClass="stat-card-title"/>
+            <Label fx:id="lowStockLabel"  text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Expiring Soon -->
+        <VBox styleClass="stat-card, stat-card-red"
+              GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Expiring Soon" styleClass="stat-card-title"/>
+            <Label fx:id="expiringLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Total Suppliers -->
+        <VBox styleClass="stat-card, stat-card-indigo"
+              GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Suppliers"          styleClass="stat-card-title"/>
+            <Label fx:id="totalSuppliersLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+        <!-- Total Customers -->
+        <VBox styleClass="stat-card, stat-card-pink"
+              GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Customers"          styleClass="stat-card-title"/>
+            <Label fx:id="totalCustomersLabel" text="—" styleClass="stat-card-value"/>
+        </VBox>
+
+    </GridPane>
+
+</VBox>

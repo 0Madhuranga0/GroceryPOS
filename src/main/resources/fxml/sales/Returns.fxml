@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.sales.ReturnController"
+      styleClass="dashboard-root" spacing="16">
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+    <Label text="Returns &amp; Refunds" styleClass="page-title"/>
+
+    <!-- ── Invoice search ── -->
+    <HBox spacing="8" alignment="CENTER_LEFT"
+          style="-fx-background-color: #e8eaf6; -fx-padding: 12 16;
+                 -fx-background-radius: 6;">
+        <Label text="Invoice Number:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="invoiceField" promptText="e.g. INV-000001"
+                   prefWidth="200" styleClass="text-field"
+                   onAction="#handleSearch"/>
+        <Button text="Search" styleClass="btn-primary" onAction="#handleSearch"
+                style="-fx-padding: 8 20;"/>
+        <Button text="Clear"  styleClass="btn-secondary" onAction="#handleClear"
+                style="-fx-padding: 8 16;"/>
+    </HBox>
+
+    <!-- ── Sale info panel ── -->
+    <GridPane hgap="20" vgap="8"
+              style="-fx-background-color: #f5f7fa; -fx-padding: 14 16;
+                     -fx-background-radius: 6; -fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;">
+        <Label text="Invoice:"    style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblInvoice" text="—"                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Date:"       style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <Label fx:id="lblDate"    text="—"                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+        <Label text="Customer:"   style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="lblCustomer" text="—"                      GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Total:"      style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <Label fx:id="lblTotal"   text="—"                       GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <Label text="Status:"     style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="lblSaleStatus" text="—"                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    </GridPane>
+
+    <!-- Error banner -->
+    <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+           style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                  -fx-background-color: #fdecea; -fx-padding: 8 12;
+                  -fx-background-radius: 4;"/>
+
+    <!-- ── Items selection table ── -->
+    <Label text="SELECT ITEMS TO RETURN"
+           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+    <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS" editable="true"
+               styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colSelect"    text="Return" prefWidth="65"  editable="true"/>
+            <TableColumn fx:id="colProduct"   text="Product" prefWidth="230"/>
+            <TableColumn fx:id="colSoldQty"   text="Sold Qty" prefWidth="80"/>
+            <TableColumn fx:id="colReturnQty" text="Return Qty" prefWidth="90" editable="true"/>
+            <TableColumn fx:id="colUnitPrice" text="Unit Price" prefWidth="110"/>
+            <TableColumn fx:id="colRefund"    text="Refund"    prefWidth="110"/>
+            <TableColumn fx:id="colRestock"   text="Restock"   prefWidth="75"  editable="true"/>
+        </columns>
+        <placeholder>
+            <Label text="Search for an invoice above to load sale items."/>
+        </placeholder>
+    </TableView>
+
+    <!-- ── Reason + totals + process button ── -->
+    <HBox spacing="16" alignment="BOTTOM_LEFT">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="REASON (optional)"
+                   style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+            <TextArea fx:id="returnReasonField"
+                      promptText="Reason for the return (optional)"
+                      prefRowCount="2" wrapText="true"/>
+        </VBox>
+
+        <VBox spacing="8" alignment="CENTER_RIGHT" prefWidth="280">
+            <HBox alignment="CENTER_RIGHT" spacing="12">
+                <Label text="TOTAL REFUND:"
+                       style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                <Label fx:id="lblTotalRefund" text="Rs. 0.00"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold;
+                              -fx-text-fill: #c62828;"/>
+            </HBox>
+            <Button fx:id="btnProcess" text="✔  Process Return"
+                    maxWidth="Infinity" disable="true"
+                    onAction="#handleProcess"
+                    style="-fx-background-color: #c62828; -fx-text-fill: white;
+                           -fx-font-size: 15px; -fx-font-weight: bold;
+                           -fx-pref-height: 44; -fx-background-radius: 6;
+                           -fx-cursor: hand;"/>
+        </VBox>
+    </HBox>
+</VBox>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.sales.SaleDetailController"
+      spacing="16" prefWidth="700"
+      style="-fx-background-color: white; -fx-padding: 24;">
+
+    <Label text="Sale Detail" styleClass="page-title"/>
+
+    <!-- Info grid -->
+    <GridPane hgap="16" vgap="8"
+              style="-fx-background-color: #f5f7fa; -fx-padding: 16;
+                     -fx-background-radius: 6; -fx-border-color: #e0e0e0;
+                     -fx-border-radius: 6;">
+        <Label text="Invoice #:"    style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblInvoice"   text="" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Date:"         style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <Label fx:id="lblDate"      text="" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+        <Label text="Customer:"     style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="lblCustomer"  text="" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Cashier:"      style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <Label fx:id="lblCashier"   text="" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+        <Label text="Payment:"      style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="lblPayment"   text="" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Status:"       style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <Label fx:id="lblStatus"    text="" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+        <Label text="Notes:"        style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="lblNotes"     text="" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3"/>
+    </GridPane>
+
+    <!-- Items -->
+    <Label text="ITEMS" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+    <TableView fx:id="itemsTable" prefHeight="220" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colProduct"   text="Product"    prefWidth="260"/>
+            <TableColumn fx:id="colQty"       text="Qty"        prefWidth="70"/>
+            <TableColumn fx:id="colUnitPrice" text="Unit Price" prefWidth="120"/>
+            <TableColumn fx:id="colDiscount"  text="Discount"   prefWidth="100"/>
+            <TableColumn fx:id="colTotal"     text="Total"      prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <!-- Totals -->
+    <GridPane hgap="16" vgap="6" alignment="CENTER_RIGHT">
+        <Label text="Subtotal:"      style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblSubtotal"   text="" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Discount:"      style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="lblDiscount"   text="" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Tax:"           style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="lblTax"        text="" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Grand Total:"   style="-fx-font-size: 15px; -fx-font-weight: bold;"
+               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="lblGrandTotal" text=""
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1a237e;"
+               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Cash Received:" style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Label fx:id="lblCashReceived" text="" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Change:"        style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <Label fx:id="lblChange"     text="" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    </GridPane>
+
+    <!-- Buttons -->
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button fx:id="btnVoid"  text="Void This Sale" styleClass="btn-danger"
+                onAction="#handleVoid" style="-fx-padding: 8 20;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnClose" text="Close" styleClass="btn-secondary"
+                onAction="#handleClose" style="-fx-padding: 8 24;"/>
+    </HBox>
+</VBox>

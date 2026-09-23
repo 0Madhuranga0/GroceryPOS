@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.settings.SettingsController"
+      styleClass="dashboard-root" spacing="0">
+
+    <!-- ═══ Header ═══ -->
+    <HBox alignment="CENTER_LEFT" spacing="12"
+          style="-fx-padding: 20 24 12 24;">
+        <Label text="Settings" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Reset"       styleClass="btn-secondary" onAction="#handleReset"
+                style="-fx-padding: 8 20;"/>
+        <Button text="💾  Save All" styleClass="btn-primary"  onAction="#handleSave"
+                style="-fx-padding: 8 24; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- ═══ TabPane ═══ -->
+    <TabPane VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE"
+             style="-fx-padding: 0 16 16 16;">
+
+        <!-- ─── TAB 1: Store ─── -->
+        <Tab text="🏪  Store Info">
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                <VBox spacing="16" style="-fx-padding: 20;">
+
+                    <Label text="STORE INFORMATION"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                    <HBox spacing="16">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Store Name" styleClass="login-field-label"/>
+                            <TextField fx:id="storeName" styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Phone" styleClass="login-field-label"/>
+                            <TextField fx:id="storePhone" styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="4">
+                        <Label text="Address" styleClass="login-field-label"/>
+                        <TextField fx:id="storeAddress" styleClass="text-field" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <HBox spacing="16">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Email" styleClass="login-field-label"/>
+                            <TextField fx:id="storeEmail" styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Receipt Footer" styleClass="login-field-label"/>
+                            <TextField fx:id="receiptFooter" styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                    </HBox>
+
+                    <Separator/>
+                    <Label text="CURRENCY"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                    <HBox spacing="16">
+                        <VBox spacing="4" prefWidth="160">
+                            <Label text="Currency Symbol (e.g. Rs.)" styleClass="login-field-label"/>
+                            <TextField fx:id="currencySymbol" styleClass="text-field"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="160">
+                            <Label text="Currency Code (e.g. LKR)" styleClass="login-field-label"/>
+                            <TextField fx:id="currencyCode" styleClass="text-field"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ─── TAB 2: Tax ─── -->
+        <Tab text="💰  Tax &amp; Invoicing">
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                <VBox spacing="16" style="-fx-padding: 20;">
+
+                    <Label text="TAX SETTINGS"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                    <CheckBox fx:id="taxEnabled" text="Enable Tax on Sales"
+                              style="-fx-font-size: 13px;"/>
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Tax Rate (%)" styleClass="login-field-label" prefWidth="160"/>
+                        <TextField fx:id="taxRate" promptText="e.g. 15.00"
+                                   prefWidth="120" styleClass="text-field"/>
+                        <Label text="(Enter as percentage, e.g. 15 for 15%)"
+                               style="-fx-text-fill: #78909c; -fx-font-size: 11px;"/>
+                    </HBox>
+
+                    <Separator/>
+                    <Label text="INVOICE NUMBERING"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                    <HBox spacing="16">
+                        <VBox spacing="4" prefWidth="200">
+                            <Label text="Invoice Prefix" styleClass="login-field-label"/>
+                            <TextField fx:id="invoicePrefix" styleClass="text-field"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="200">
+                            <Label text="Purchase Prefix" styleClass="login-field-label"/>
+                            <TextField fx:id="purchasePrefix" styleClass="text-field"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="200">
+                            <Label text="Return Prefix" styleClass="login-field-label"/>
+                            <TextField fx:id="returnPrefix" styleClass="text-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Number Length (zero-padded)" styleClass="login-field-label" prefWidth="240"/>
+                        <TextField fx:id="invoiceNumberLength" prefWidth="80" styleClass="text-field"/>
+                        <Label text="(e.g. 6 produces INV-000001)"
+                               style="-fx-text-fill: #78909c; -fx-font-size: 11px;"/>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ─── TAB 3: Inventory ─── -->
+        <Tab text="📦  Inventory">
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                <VBox spacing="16" style="-fx-padding: 20;">
+
+                    <Label text="STOCK SETTINGS"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                    <CheckBox fx:id="lowStockWarning" text="Show low stock warnings"
+                              style="-fx-font-size: 13px;"/>
+                    <CheckBox fx:id="allowNegativeStock" text="Allow selling when stock is zero (negative stock)"
+                              style="-fx-font-size: 13px;"/>
+
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Expiry Warning Days" styleClass="login-field-label" prefWidth="200"/>
+                        <TextField fx:id="expiryWarningDays" prefWidth="80" styleClass="text-field"/>
+                        <Label text="(Warn when expiry is within this many days)"
+                               style="-fx-text-fill: #78909c; -fx-font-size: 11px;"/>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ─── TAB 4: Hardware ─── -->
+        <Tab text="⚙  Hardware">
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                <VBox spacing="16" style="-fx-padding: 20;">
+
+                    <Label text="RECEIPT PRINTER"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+                    <HBox spacing="16">
+                        <VBox spacing="4" prefWidth="200">
+                            <Label text="Printer Type" styleClass="login-field-label"/>
+                            <ComboBox fx:id="printerType" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Printer Name / Port" styleClass="login-field-label"/>
+                            <TextField fx:id="printerName" promptText="e.g. POS-80 or USB001"
+                                       styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                    </HBox>
+
+                    <Separator/>
+                    <Label text="CUSTOMER DISPLAY"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+                    <HBox spacing="16">
+                        <VBox spacing="4" prefWidth="220">
+                            <Label text="Display Type" styleClass="login-field-label"/>
+                            <ComboBox fx:id="displayType" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="120">
+                            <Label text="Serial Port" styleClass="login-field-label"/>
+                            <TextField fx:id="displayPort" promptText="e.g. COM3"
+                                       styleClass="text-field"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="100">
+                            <Label text="Baud Rate" styleClass="login-field-label"/>
+                            <TextField fx:id="displayBaudRate" promptText="9600"
+                                       styleClass="text-field"/>
+                        </VBox>
+                    </HBox>
+                    <HBox spacing="16">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="Network Host / IP (for NETWORK type)" styleClass="login-field-label"/>
+                            <TextField fx:id="displayHost" promptText="e.g. 192.168.1.200"
+                                       styleClass="text-field" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" prefWidth="120">
+                            <Label text="TCP Port" styleClass="login-field-label"/>
+                            <TextField fx:id="displayTcpPort" promptText="3000"
+                                       styleClass="text-field"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ─── TAB 5: Backup ─── -->
+        <Tab text="💾  Backup &amp; Restore">
+            <VBox spacing="16" style="-fx-padding: 20;">
+
+                <Label text="BACKUP SETTINGS"
+                       style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Backup Directory" styleClass="login-field-label"/>
+                        <TextField fx:id="backupDir" styleClass="text-field" maxWidth="Infinity"/>
+                    </VBox>
+                    <Button text="Browse..." styleClass="btn-secondary"
+                            onAction="#handleBrowseBackupDir"
+                            style="-fx-padding: 8 14; -fx-translate-y: 10;"/>
+                </HBox>
+
+                <HBox spacing="16" alignment="CENTER_LEFT">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="mysqldump Executable Path" styleClass="login-field-label"/>
+                        <TextField fx:id="mysqldumpPath" promptText="mysqldump or full path"
+                                   styleClass="text-field" maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+
+                <Separator/>
+                <Label text="DATABASE BACKUP"
+                       style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button text="📥  Create Backup Now" styleClass="btn-success"
+                            onAction="#handleCreateBackup"
+                            style="-fx-padding: 10 20; -fx-font-weight: bold;"/>
+                    <Button text="📤  Restore from File..." styleClass="btn-danger"
+                            onAction="#handleRestoreBackup"
+                            style="-fx-padding: 10 20; -fx-font-weight: bold;"/>
+                    <Button text="Refresh List" styleClass="btn-secondary"
+                            onAction="#handleRefreshBackupList"
+                            style="-fx-padding: 10 14;"/>
+                    <ProgressIndicator fx:id="backupSpinner" prefWidth="24" prefHeight="24"
+                                       visible="false"/>
+                </HBox>
+
+                <Label fx:id="backupStatusLabel" text=""
+                       style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+
+                <Label text="EXISTING BACKUPS"
+                       style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+                <ListView fx:id="backupList" prefHeight="180" VBox.vgrow="ALWAYS"
+                          styleClass="table-view">
+                    <placeholder><Label text="No backups found in the backup directory."/></placeholder>
+                </ListView>
+
+                <Label text="⚠ Restore will OVERWRITE all current data. Always create a backup before restoring."
+                       style="-fx-text-fill: #c62828; -fx-font-size: 11px;
+                              -fx-background-color: #fdecea; -fx-padding: 8 12;
+                              -fx-background-radius: 4;" wrapText="true"/>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+
+    <!-- ═══ Status bar ═══ -->
+    <Label fx:id="statusLabel" text=""
+           style="-fx-text-fill: #546e7a; -fx-font-size: 11px;
+                  -fx-padding: 6 24; -fx-background-color: #eceff1;"
+           maxWidth="Infinity"/>
+
+</VBox>

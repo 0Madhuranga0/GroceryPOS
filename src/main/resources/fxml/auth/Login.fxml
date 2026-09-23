@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    Login.fxml — Phase 2
+    Two-column layout: branding panel (left) + login form (right).
+-->
+<HBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.auth.LoginController"
+      styleClass="login-root">
+
+    <!-- ═══════════════════════════════════════════
+         LEFT  — Branding panel
+    ═══════════════════════════════════════════ -->
+    <VBox styleClass="login-brand-panel"
+          alignment="CENTER"
+          spacing="16"
+          HBox.hgrow="ALWAYS">
+        <padding><Insets top="60" right="50" bottom="60" left="50"/></padding>
+
+        <Label text="🛒" style="-fx-font-size: 64px;"/>
+
+        <Label text="GroceryPOS"
+               styleClass="brand-title"/>
+
+        <Label text="Point of Sale &amp; Inventory"
+               styleClass="brand-subtitle"/>
+
+        <Region prefHeight="24"/>
+
+        <Label text="Fast · Reliable · Simple"
+               styleClass="brand-tagline"/>
+    </VBox>
+
+    <!-- ═══════════════════════════════════════════
+         RIGHT — Login form panel
+    ═══════════════════════════════════════════ -->
+    <VBox styleClass="login-form-panel"
+          alignment="CENTER"
+          spacing="0"
+          minWidth="400" prefWidth="440">
+        <padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
+
+        <!-- Title -->
+        <Label fx:id="titleLabel"
+               text="GroceryPOS"
+               styleClass="login-title"/>
+
+        <Region prefHeight="8"/>
+
+        <Label fx:id="subtitleLabel"
+               text="Sign in to continue"
+               styleClass="login-subtitle"/>
+
+        <Region prefHeight="36"/>
+
+        <!-- Error / info message -->
+        <Label fx:id="messageLabel"
+               text=""
+               styleClass="login-message"
+               wrapText="true"
+               maxWidth="320"
+               visible="false"/>
+
+        <Region prefHeight="8"/>
+
+        <!-- Username -->
+        <Label text="Username" styleClass="login-field-label"/>
+        <Region prefHeight="6"/>
+        <TextField fx:id="usernameField"
+                   promptText="Enter your username"
+                   styleClass="login-field"
+                   maxWidth="320"/>
+
+        <Region prefHeight="16"/>
+
+        <!-- Password -->
+        <Label text="Password" styleClass="login-field-label"/>
+        <Region prefHeight="6"/>
+        <PasswordField fx:id="passwordField"
+                       promptText="Enter your password"
+                       styleClass="login-field"
+                       maxWidth="320"/>
+
+        <Region prefHeight="28"/>
+
+        <!-- Login button + spinner row -->
+        <StackPane maxWidth="320">
+            <Button fx:id="loginButton"
+                    text="Login"
+                    maxWidth="Infinity"
+                    defaultButton="true"
+                    onAction="#handleLogin"
+                    styleClass="btn-login"/>
+            <ProgressIndicator fx:id="spinner"
+                               prefWidth="28" prefHeight="28"
+                               visible="false"
+                               StackPane.alignment="CENTER_RIGHT"
+                               style="-fx-progress-color: white;">
+                <StackPane.margin><Insets right="12"/></StackPane.margin>
+            </ProgressIndicator>
+        </StackPane>
+
+        <!-- Spacer -->
+        <Region prefHeight="40"/>
+
+        <!-- Version -->
+        <Label fx:id="versionLabel"
+               text="v1.0.0"
+               styleClass="login-version"/>
+
+    </VBox>
+
+</HBox>

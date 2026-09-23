@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.embed.swing.SwingNode?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gp.grocerypos.controller.reports.ReportViewerController"
+            style="-fx-background-color: #37474f;">
+
+    <!-- ═══ TOP — Header ═══ -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16"
+              style="-fx-background-color: #1a237e; -fx-padding: 10 20;">
+            <Label fx:id="lblTitle" text="Report"
+                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblPageInfo" text=""
+                   style="-fx-text-fill: #90caf9; -fx-font-size: 12px;"/>
+            <Button fx:id="btnPrint" text="🖨  Print"
+                    onAction="#handlePrint"
+                    style="-fx-background-color: #2e7d32; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-cursor: hand;
+                           -fx-background-radius: 4; -fx-padding: 6 16;"/>
+            <Button fx:id="btnClose" text="✕  Close"
+                    onAction="#handleClose"
+                    style="-fx-background-color: #b71c1c; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-cursor: hand;
+                           -fx-background-radius: 4; -fx-padding: 6 16;"/>
+        </HBox>
+    </top>
+
+    <!-- ═══ CENTER — JRViewer SwingNode ═══ -->
+    <center>
+        <StackPane fx:id="viewerPane"
+                   style="-fx-background-color: #546e7a;">
+            <Label text="Loading report preview..."
+                   style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+        </StackPane>
+    </center>
+
+</BorderPane>

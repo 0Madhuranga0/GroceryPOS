@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.purchase.PurchaseController"
+      styleClass="dashboard-root" spacing="16">
+
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Purchases" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnNew" text="+ New Purchase"
+                styleClass="btn-primary" onAction="#handleNew"/>
+    </HBox>
+
+    <!-- Filter bar -->
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label text="From:" style="-fx-font-weight: bold;"/>
+        <DatePicker fx:id="fromDatePicker" prefWidth="140"/>
+        <Label text="To:" style="-fx-font-weight: bold;"/>
+        <DatePicker fx:id="toDatePicker" prefWidth="140"/>
+        <ComboBox fx:id="supplierFilter" prefWidth="180"/>
+        <Button text="Filter" styleClass="btn-primary" onAction="#handleFilter"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" promptText="Search by number or supplier..."
+                   prefWidth="260" styleClass="text-field"/>
+        <Button fx:id="btnView"  text="View Detail" styleClass="btn-secondary" onAction="#handleView"/>
+        <Button text="Refresh"                       styleClass="btn-secondary" onAction="#handleRefresh"/>
+    </HBox>
+
+    <!-- Table -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colNumber"   text="Purchase #"   prefWidth="130"/>
+            <TableColumn fx:id="colDate"     text="Date"         prefWidth="140"/>
+            <TableColumn fx:id="colSupplier" text="Supplier"     prefWidth="200"/>
+            <TableColumn fx:id="colTotal"    text="Total"        prefWidth="120"/>
+            <TableColumn fx:id="colUser"     text="Recorded By"  prefWidth="140"/>
+            <TableColumn fx:id="colStatus"   text="Status"       prefWidth="100"/>
+        </columns>
+        <placeholder><Label text="No purchases found for the selected filters."/></placeholder>
+    </TableView>
+
+    <Label fx:id="statusLabel" text=""
+           style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+</VBox>

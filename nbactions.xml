@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <!--
+        NetBeans custom action bindings for GroceryPOS.
+
+        Uses Launcher as the main class (not GroceryPOSApp directly).
+        Launcher is a plain class that does NOT extend Application,
+        which bypasses the JVM classpath check for JavaFX.
+        No module-path or add-modules arguments are needed.
+    -->
+
+    <!-- Run Project (F6) -->
+    <action>
+        <actionName>run</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
+        </goals>
+        <properties>
+            <exec.executable>${java.home}/bin/java</exec.executable>
+            <exec.args>-classpath %classpath com.gp.grocerypos.Launcher</exec.args>
+        </properties>
+    </action>
+
+    <!-- Debug Project -->
+    <action>
+        <actionName>debug</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
+        </goals>
+        <properties>
+            <exec.executable>${java.home}/bin/java</exec.executable>
+            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.gp.grocerypos.Launcher</exec.args>
+            <jpda.listen>true</jpda.listen>
+        </properties>
+    </action>
+
+</actions>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.product.ProductController"
+      styleClass="dashboard-root" spacing="16">
+
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Products" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnAdd" text="+ Add Product" styleClass="btn-primary" onAction="#handleAdd"/>
+    </HBox>
+
+    <!-- Filter + Search + Actions -->
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <ComboBox fx:id="filterCombo" prefWidth="150"/>
+        <TextField fx:id="searchField"
+                   promptText="Search by name, barcode, brand or category..."
+                   prefWidth="320" styleClass="text-field"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnEdit"         text="Edit"       styleClass="btn-secondary" onAction="#handleEdit"/>
+        <Button fx:id="btnToggleStatus" text="Deactivate" styleClass="btn-secondary" onAction="#handleToggleStatus"/>
+        <Button text="Refresh"                             styleClass="btn-secondary" onAction="#handleRefresh"/>
+    </HBox>
+
+    <!-- Table -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colId"           text="ID"       prefWidth="55"/>
+            <TableColumn fx:id="colBarcode"      text="Barcode"  prefWidth="130"/>
+            <TableColumn fx:id="colName"         text="Product Name" prefWidth="220"/>
+            <TableColumn fx:id="colCategory"     text="Category" prefWidth="130"/>
+            <TableColumn fx:id="colUnit"         text="Unit"     prefWidth="80"/>
+            <TableColumn fx:id="colSellingPrice" text="Price"    prefWidth="100"/>
+            <TableColumn fx:id="colStock"        text="Stock"    prefWidth="80"/>
+            <TableColumn fx:id="colStatus"       text="Status"   prefWidth="90"/>
+        </columns>
+        <placeholder><Label text="No products found."/></placeholder>
+    </TableView>
+
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+</VBox>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.customer.CustomerController"
+      styleClass="dashboard-root" spacing="16">
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Customers" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnAdd" text="+ Add Customer" styleClass="btn-primary" onAction="#handleAdd"/>
+    </HBox>
+
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <TextField fx:id="searchField" promptText="Search by name, phone or email..."
+                   prefWidth="320" styleClass="text-field"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnEdit"         text="Edit"       styleClass="btn-secondary" onAction="#handleEdit"/>
+        <Button fx:id="btnToggleStatus" text="Deactivate" styleClass="btn-secondary" onAction="#handleToggleStatus"/>
+        <Button text="Refresh"                             styleClass="btn-secondary" onAction="#handleRefresh"/>
+    </HBox>
+
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colId"     text="ID"             prefWidth="55"/>
+            <TableColumn fx:id="colName"   text="Name"           prefWidth="200"/>
+            <TableColumn fx:id="colPhone"  text="Phone"          prefWidth="130"/>
+            <TableColumn fx:id="colEmail"  text="Email"          prefWidth="200"/>
+            <TableColumn fx:id="colPoints" text="Loyalty Points" prefWidth="110"/>
+            <TableColumn fx:id="colStatus" text="Status"         prefWidth="90"/>
+        </columns>
+        <placeholder><Label text="No customers found."/></placeholder>
+    </TableView>
+
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+</VBox>

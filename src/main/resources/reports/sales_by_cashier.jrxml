@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="sales_by_cashier" pageWidth="595" pageHeight="842"
+              columnWidth="535" leftMargin="30" rightMargin="30"
+              topMargin="30" bottomMargin="30" whenNoDataType="AllSectionsNoDetail">
+
+    <parameter name="STORE_NAME"    class="java.lang.String" isForPrompting="false"/>
+    <parameter name="CURRENCY"      class="java.lang.String" isForPrompting="false"/>
+    <parameter name="P_DATE_FROM"   class="java.lang.String"/>
+    <parameter name="P_DATE_TO"     class="java.lang.String"/>
+
+    <queryString>
+        <![CDATA[
+        SELECT
+            u.full_name                AS cashier,
+            COUNT(s.id)                AS num_sales,
+            SUM(s.grand_total)         AS total_sales,
+            SUM(s.discount_amount)     AS total_discounts,
+            SUM(CASE WHEN s.payment_method='CASH' THEN s.grand_total ELSE 0 END) AS cash_sales,
+            SUM(CASE WHEN s.payment_method='CARD' THEN s.grand_total ELSE 0 END) AS card_sales
+        FROM   sales s
+        JOIN   users u ON u.id = s.user_id
+        WHERE  DATE(s.sale_date) BETWEEN $P{P_DATE_FROM} AND $P{P_DATE_TO}
+        AND    s.status = 'COMPLETED'
+        GROUP  BY u.id, u.full_name
+        ORDER  BY total_sales DESC
+        ]]>
+    </queryString>
+
+    <field name="cashier"         class="java.lang.String"/>
+    <field name="num_sales"       class="java.lang.Long"/>
+    <field name="total_sales"     class="java.math.BigDecimal"/>
+    <field name="total_discounts" class="java.math.BigDecimal"/>
+    <field name="cash_sales"      class="java.math.BigDecimal"/>
+    <field name="card_sales"      class="java.math.BigDecimal"/>
+
+    <variable name="GRAND_TOTAL" class="java.math.BigDecimal" calculation="Sum" resetType="Report">
+        <variableExpression><![CDATA[$F{total_sales}]]></variableExpression>
+        <initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression>
+    </variable>
+
+    <title>
+        <band height="72">
+            <textField><reportElement x="0" y="0" width="535" height="22"/>
+                <textElement textAlignment="Center"><font size="15" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{STORE_NAME}]]></textFieldExpression></textField>
+            <staticText><reportElement x="0" y="24" width="535" height="18"/>
+                <textElement textAlignment="Center"><font size="12" isBold="true"/></textElement>
+                <text><![CDATA[Sales by Cashier Report]]></text></staticText>
+            <textField><reportElement x="0" y="44" width="535" height="14"/>
+                <textElement textAlignment="Center"><font size="9" isItalic="true"/></textElement>
+                <textFieldExpression><![CDATA["Period: " + $P{P_DATE_FROM} + " to " + $P{P_DATE_TO}]]></textFieldExpression></textField>
+            <line><reportElement x="0" y="68" width="535" height="1"/></line>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <rectangle><reportElement x="0" y="0" width="535" height="20" backcolor="#283593"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <staticText><reportElement x="0"   y="2" width="150" height="16" forecolor="#FFFFFF"/>
+                <textElement><font isBold="true" size="9"/></textElement><text><![CDATA[Cashier]]></text></staticText>
+            <staticText><reportElement x="150" y="2" width="70"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement><text><![CDATA[# Sales]]></text></staticText>
+            <staticText><reportElement x="220" y="2" width="90"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement><text><![CDATA[Total Sales]]></text></staticText>
+            <staticText><reportElement x="310" y="2" width="80"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement><text><![CDATA[Cash]]></text></staticText>
+            <staticText><reportElement x="390" y="2" width="80"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement><text><![CDATA[Card]]></text></staticText>
+            <staticText><reportElement x="470" y="2" width="65"  height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right"><font isBold="true" size="9"/></textElement><text><![CDATA[Discounts]]></text></staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="18">
+            <rectangle><reportElement x="0" y="0" width="535" height="18" backcolor="#EEF0FB" mode="Opaque">
+                <printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression></reportElement>
+                <graphicElement><pen lineWidth="0"/></graphicElement></rectangle>
+            <textField><reportElement x="0"   y="2" width="150" height="14"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression></textField>
+            <textField><reportElement x="150" y="2" width="70" height="14"/>
+                <textElement textAlignment="Right"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{num_sales}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="220" y="2" width="90" height="14"/>
+                <textElement textAlignment="Right"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{total_sales}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="310" y="2" width="80" height="14"/>
+                <textElement textAlignment="Right"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{cash_sales}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="390" y="2" width="80" height="14"/>
+                <textElement textAlignment="Right"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{card_sales}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="470" y="2" width="65" height="14"/>
+                <textElement textAlignment="Right"><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$F{total_discounts}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="28">
+            <line><reportElement x="0" y="2" width="535" height="1"/></line>
+            <staticText><reportElement x="150" y="8" width="160" height="14"/>
+                <textElement textAlignment="Right"><font isBold="true" size="10"/></textElement>
+                <text><![CDATA[Grand Total Sales:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="310" y="8" width="225" height="14"/>
+                <textElement textAlignment="Right"><font isBold="true" size="11"/></textElement>
+                <textFieldExpression><![CDATA[$V{GRAND_TOTAL}]]></textFieldExpression></textField>
+        </band>
+    </summary>
+
+</jasperReport>

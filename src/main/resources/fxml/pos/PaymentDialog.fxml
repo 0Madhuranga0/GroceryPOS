@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.pos.PaymentDialogController"
+      spacing="20" prefWidth="420"
+      style="-fx-background-color: white; -fx-padding: 28;">
+
+    <!-- Title -->
+    <Label text="Process Payment" styleClass="page-title"/>
+
+    <!-- Invoice info -->
+    <Label fx:id="lblInvoiceInfo" text=""
+           style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+
+    <!-- Grand Total -->
+    <VBox spacing="4"
+          style="-fx-background-color: #1a237e; -fx-background-radius: 8; -fx-padding: 16;">
+        <Label text="GRAND TOTAL"
+               style="-fx-text-fill: #90caf9; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+        <Label fx:id="lblGrandTotal" text="Rs. 0.00"
+               style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+    </VBox>
+
+    <!-- Error -->
+    <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+           style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                  -fx-background-color: #fdecea; -fx-padding: 8 12;
+                  -fx-background-radius: 4;" maxWidth="370"/>
+
+    <!-- Payment method -->
+    <VBox spacing="8">
+        <Label text="PAYMENT METHOD" styleClass="login-field-label"/>
+        <HBox spacing="16">
+            <RadioButton fx:id="rbCash" text="💵  Cash" selected="true"
+                         style="-fx-font-size: 14px; -fx-font-weight: bold;">
+                <toggleGroup><ToggleGroup fx:id="paymentToggle"/></toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbCard" text="💳  Card"
+                         toggleGroup="$paymentToggle"
+                         style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Cash tendered -->
+    <VBox spacing="4">
+        <Label text="CASH TENDERED" styleClass="login-field-label"/>
+        <TextField fx:id="cashField" promptText="0.00"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;
+                          -fx-pref-height: 48; -fx-background-radius: 6;
+                          -fx-border-radius: 6; -fx-border-color: #1a237e;
+                          -fx-padding: 8 12;" maxWidth="370"/>
+    </VBox>
+
+    <!-- Change -->
+    <VBox spacing="4">
+        <Label fx:id="lblChangeCaption" text="CHANGE"
+               styleClass="login-field-label" visible="true"/>
+        <Label fx:id="lblChange" text="Rs. 0.00"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;
+                      -fx-text-fill: #2e7d32;" visible="true"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <padding><Insets top="8"/></padding>
+        <Button fx:id="btnCancel" text="Cancel"
+                styleClass="btn-secondary" onAction="#handleCancel"
+                style="-fx-padding: 10 24;"/>
+        <Button fx:id="btnConfirm" text="✔  Confirm Payment"
+                styleClass="btn-success" defaultButton="true"
+                onAction="#handleConfirm"
+                style="-fx-padding: 10 24; -fx-font-size: 14px;"/>
+    </HBox>
+</VBox>

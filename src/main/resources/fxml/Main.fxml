@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="rootPane"
+            fx:controller="com.gp.grocerypos.controller.MainController"
+            styleClass="main-root">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOP — Header bar
+    ═══════════════════════════════════════════════════════════ -->
+    <top>
+        <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="0" right="20" bottom="0" left="20"/></padding>
+
+            <!-- Store name -->
+            <Label fx:id="storeNameLabel" text="GroceryPOS" styleClass="header-store-name"/>
+
+            <!-- Spacer -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- User info -->
+            <VBox alignment="CENTER_RIGHT" spacing="2">
+                <Label fx:id="userNameLabel" text="User" styleClass="header-username"/>
+                <Label fx:id="userRoleLabel" text="Role" styleClass="header-role"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL" style="-fx-background-color: #4a5568;"/>
+
+            <!-- Logout button -->
+            <Button text="Logout" onAction="#handleLogout" styleClass="btn-logout"/>
+        </HBox>
+    </top>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LEFT — Sidebar navigation
+    ═══════════════════════════════════════════════════════════ -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" spacing="4" minWidth="200" prefWidth="200">
+            <padding><Insets top="16" right="8" bottom="16" left="8"/></padding>
+
+            <Button fx:id="navDashboard"
+                    text="📊  Dashboard"
+                    maxWidth="Infinity"
+                    onAction="#handleNavDashboard"
+                    styleClass="nav-button, nav-button-active"/>
+
+            <Button fx:id="navPOS"
+                    text="🛒  POS Billing"
+                    maxWidth="Infinity"
+                    onAction="#handleNavPOS"
+                    styleClass="nav-button"/>
+
+            <Separator styleClass="nav-separator"/>
+
+            <Button fx:id="navProducts"
+                    text="📦  Products"
+                    maxWidth="Infinity"
+                    onAction="#handleNavProducts"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navInventory"
+                    text="🗃  Inventory"
+                    maxWidth="Infinity"
+                    onAction="#handleNavInventory"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navPurchases"
+                    text="🚚  Purchases"
+                    maxWidth="Infinity"
+                    onAction="#handleNavPurchases"
+                    styleClass="nav-button"/>
+
+            <Separator styleClass="nav-separator"/>
+
+            <Button fx:id="navSuppliers"
+                    text="🏭  Suppliers"
+                    maxWidth="Infinity"
+                    onAction="#handleNavSuppliers"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navCustomers"
+                    text="👤  Customers"
+                    maxWidth="Infinity"
+                    onAction="#handleNavCustomers"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navSales"
+                    text="🧾  Sales History"
+                    maxWidth="Infinity"
+                    onAction="#handleNavSales"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navReturns"
+                    text="↩  Returns"
+                    maxWidth="Infinity"
+                    onAction="#handleNavReturns"
+                    styleClass="nav-button"/>
+
+            <Separator styleClass="nav-separator"/>
+
+            <Button fx:id="navReports"
+                    text="📈  Reports"
+                    maxWidth="Infinity"
+                    onAction="#handleNavReports"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navUsers"
+                    text="👥  Users"
+                    maxWidth="Infinity"
+                    onAction="#handleNavUsers"
+                    styleClass="nav-button"/>
+
+            <Button fx:id="navSettings"
+                    text="⚙  Settings"
+                    maxWidth="Infinity"
+                    onAction="#handleNavSettings"
+                    styleClass="nav-button"/>
+
+        </VBox>
+    </left>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CENTER — Dynamic content area
+    ═══════════════════════════════════════════════════════════ -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+</BorderPane>

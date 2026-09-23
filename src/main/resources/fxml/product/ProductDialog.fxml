@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gp.grocerypos.controller.product.ProductDialogController"
+            fitToWidth="true"
+            style="-fx-background-color: white;">
+
+    <VBox spacing="16" prefWidth="580"
+          style="-fx-background-color: white; -fx-padding: 24;">
+
+        <Label fx:id="titleLabel" text="Add Product" styleClass="page-title"/>
+
+        <!-- Error banner -->
+        <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+               style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                      -fx-background-color: #fdecea; -fx-padding: 8 12;
+                      -fx-background-radius: 4;" maxWidth="530"/>
+
+        <!-- ─── Section: Basic Information ─── -->
+        <Label text="BASIC INFORMATION"
+               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+        <!-- Barcode + Name -->
+        <HBox spacing="12">
+            <VBox spacing="4" prefWidth="180">
+                <Label text="Barcode" styleClass="login-field-label"/>
+                <TextField fx:id="barcodeField" promptText="Scan or type barcode"
+                           styleClass="text-field"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Product Name *" styleClass="login-field-label"/>
+                <TextField fx:id="nameField" promptText="Product name"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- Brand + Unit -->
+        <HBox spacing="12">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Brand" styleClass="login-field-label"/>
+                <TextField fx:id="brandField" promptText="Brand name"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" prefWidth="150">
+                <Label text="Unit *" styleClass="login-field-label"/>
+                <ComboBox fx:id="unitCombo" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- Description -->
+        <VBox spacing="4">
+            <Label text="Description" styleClass="login-field-label"/>
+            <TextArea fx:id="descriptionField" promptText="Product description (optional)"
+                      prefRowCount="2" wrapText="true" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- ─── Section: Classification ─── -->
+        <Label text="CLASSIFICATION"
+               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+        <HBox spacing="12">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Category" styleClass="login-field-label"/>
+                <ComboBox fx:id="categoryCombo" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Supplier" styleClass="login-field-label"/>
+                <ComboBox fx:id="supplierCombo" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- ─── Section: Pricing ─── -->
+        <Label text="PRICING"
+               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+        <HBox spacing="12">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Purchase Price *" styleClass="login-field-label"/>
+                <TextField fx:id="purchasePriceField" promptText="0.00"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Selling Price *" styleClass="login-field-label"/>
+                <TextField fx:id="sellingPriceField" promptText="0.00"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Wholesale Price" styleClass="login-field-label"/>
+                <TextField fx:id="wholesalePriceField" promptText="0.00"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- ─── Section: Stock & Expiry ─── -->
+        <Label text="STOCK &amp; EXPIRY"
+               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #546e7a;"/>
+
+        <HBox spacing="12">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Current Stock *" styleClass="login-field-label"/>
+                <TextField fx:id="currentStockField" promptText="0"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Minimum Stock *" styleClass="login-field-label"/>
+                <TextField fx:id="minimumStockField" promptText="0"
+                           styleClass="text-field" maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Expiry Date" styleClass="login-field-label"/>
+                <DatePicker fx:id="expiryDatePicker" maxWidth="Infinity"
+                            promptText="Optional"/>
+            </VBox>
+        </HBox>
+
+        <!-- Status -->
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="4" prefWidth="160">
+                <Label text="Status" styleClass="login-field-label"/>
+                <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- Buttons -->
+        <HBox spacing="8" alignment="CENTER_RIGHT">
+            <padding><Insets top="8"/></padding>
+            <Button fx:id="btnCancel" text="Cancel"
+                    styleClass="btn-secondary" onAction="#handleCancel"/>
+            <Button fx:id="btnSave" text="Save Product"
+                    styleClass="btn-primary" defaultButton="true" onAction="#handleSave"/>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

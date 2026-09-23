@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.inventory.StockAdjustDialogController"
+      spacing="16" prefWidth="440"
+      style="-fx-background-color: white; -fx-padding: 24;">
+
+    <!-- Title -->
+    <Label fx:id="titleLabel" text="Adjust Stock" styleClass="page-title"/>
+
+    <!-- Error -->
+    <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+           style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                  -fx-background-color: #fdecea; -fx-padding: 8 12;
+                  -fx-background-radius: 4;" maxWidth="390"/>
+
+    <!-- Product info -->
+    <VBox spacing="6"
+          style="-fx-background-color: #f5f7fa; -fx-padding: 12;
+                 -fx-background-radius: 6; -fx-border-color: #e0e0e0;
+                 -fx-border-radius: 6;">
+        <HBox spacing="8">
+            <Label text="Product:" style="-fx-font-weight: bold; -fx-min-width: 110;"/>
+            <Label fx:id="productLabel" text="" wrapText="true"/>
+        </HBox>
+        <HBox spacing="8">
+            <Label text="Current Stock:" style="-fx-font-weight: bold; -fx-min-width: 110;"/>
+            <Label fx:id="currentStockLabel" text=""
+                   style="-fx-font-weight: bold; -fx-text-fill: #1565c0;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Quantity -->
+    <VBox spacing="4">
+        <Label fx:id="quantityLabel" text="New Stock Quantity *"
+               styleClass="login-field-label"/>
+        <TextField fx:id="quantityField" promptText="Enter quantity"
+                   styleClass="text-field" maxWidth="390"/>
+    </VBox>
+
+    <!-- Reason -->
+    <VBox spacing="4">
+        <Label text="Reason *" styleClass="login-field-label"/>
+        <TextArea fx:id="reasonField"
+                  promptText="Explain the reason for this adjustment (required)"
+                  prefRowCount="3" wrapText="true" maxWidth="390"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button fx:id="btnCancel" text="Cancel"
+                styleClass="btn-secondary" onAction="#handleCancel"/>
+        <Button fx:id="btnSave" text="Save"
+                styleClass="btn-primary" defaultButton="true" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>

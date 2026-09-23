@@ -1,0 +1,25 @@
+# Build output
+target/
+
+# Credentials — never commit the live config file
+src/main/resources/config/app.properties
+
+# Logs
+logs/
+
+# Backups
+backups/
+
+# NetBeans project files
+nbproject/private/
+nb-configuration.xml
+build/
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.iml
+.idea/

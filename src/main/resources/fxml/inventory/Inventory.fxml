@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.inventory.InventoryController"
+      styleClass="dashboard-root" spacing="16">
+
+    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+
+    <Label text="Inventory Management" styleClass="page-title"/>
+
+    <TabPane VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+
+        <!-- ═══════════════════════════════════════════════════════
+             TAB 1 — STOCK
+        ═══════════════════════════════════════════════════════ -->
+        <Tab text="📦  Stock">
+            <VBox spacing="12" style="-fx-padding: 16 0 0 0;">
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <TextField fx:id="stockSearchField"
+                               promptText="Search by name, barcode or category..."
+                               prefWidth="320" styleClass="text-field"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnAdjust" text="Adjust Stock"
+                            styleClass="btn-primary" onAction="#handleAdjust"/>
+                    <Button fx:id="btnDamage" text="Record Damage"
+                            styleClass="btn-danger"  onAction="#handleDamage"/>
+                    <Button text="Refresh"
+                            styleClass="btn-secondary" onAction="#handleStockRefresh"/>
+                </HBox>
+
+                <TableView fx:id="stockTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="sColId"      text="ID"       prefWidth="55"/>
+                        <TableColumn fx:id="sColBarcode" text="Barcode"  prefWidth="120"/>
+                        <TableColumn fx:id="sColName"    text="Product"  prefWidth="220"/>
+                        <TableColumn fx:id="sColCategory" text="Category" prefWidth="130"/>
+                        <TableColumn fx:id="sColUnit"    text="Unit"     prefWidth="80"/>
+                        <TableColumn fx:id="sColCurrent" text="Stock"    prefWidth="80"/>
+                        <TableColumn fx:id="sColMinimum" text="Min Stock" prefWidth="80"/>
+                        <TableColumn fx:id="sColStatus"  text="Status"   prefWidth="90"/>
+                    </columns>
+                    <placeholder><Label text="No products found."/></placeholder>
+                </TableView>
+
+                <Label fx:id="stockStatusLabel" text=""
+                       style="-fx-text-fill: #546e7a; -fx-font-size: 12px;"/>
+            </VBox>
+        </Tab>
+
+        <!-- ═══════════════════════════════════════════════════════
+             TAB 2 — MOVEMENTS
+        ═══════════════════════════════════════════════════════ -->
+        <Tab text="📋  Movement History">
+            <VBox spacing="12" style="-fx-padding: 16 0 0 0;">
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label text="From:" style="-fx-font-weight: bold;"/>
+                    <DatePicker fx:id="movFromDate" prefWidth="150"/>
+                    <Label text="To:" style="-fx-font-weight: bold;"/>
+                    <DatePicker fx:id="movToDate" prefWidth="150"/>
+                    <Button text="Load Movements" styleClass="btn-primary"
+                            onAction="#handleLoadMovements"/>
+                </HBox>
+
+                <TableView fx:id="movTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="mColDate"    text="Date/Time"   prefWidth="130"/>
+                        <TableColumn fx:id="mColProduct" text="Product"     prefWidth="180"/>
+                        <TableColumn fx:id="mColType"    text="Type"        prefWidth="110"/>
+                        <TableColumn fx:id="mColQty"     text="Qty"         prefWidth="70"/>
+                        <TableColumn fx:id="mColPrev"    text="Prev Stock"  prefWidth="90"/>
+                        <TableColumn fx:id="mColNew"     text="New Stock"   prefWidth="90"/>
+                        <TableColumn fx:id="mColRef"     text="Reference"   prefWidth="100"/>
+                        <TableColumn fx:id="mColUser"    text="User"        prefWidth="120"/>
+                        <TableColumn fx:id="mColReason"  text="Reason"      prefWidth="200"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Select a date range and click Load Movements."/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- ═══════════════════════════════════════════════════════
+             TAB 3 — LOW STOCK
+        ═══════════════════════════════════════════════════════ -->
+        <Tab text="⚠  Low Stock">
+            <VBox spacing="12" style="-fx-padding: 16 0 0 0;">
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="lowStockLabel" text=""
+                           style="-fx-text-fill: #e65100; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Refresh" styleClass="btn-secondary"
+                            onAction="#handleLowStockRefresh"/>
+                </HBox>
+
+                <TableView fx:id="lowStockTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="lsColName"     text="Product"    prefWidth="240"/>
+                        <TableColumn fx:id="lsColCategory" text="Category"   prefWidth="150"/>
+                        <TableColumn fx:id="lsColCurrent"  text="Stock"      prefWidth="90"/>
+                        <TableColumn fx:id="lsColMinimum"  text="Min Stock"  prefWidth="90"/>
+                        <TableColumn fx:id="lsColUnit"     text="Unit"       prefWidth="80"/>
+                    </columns>
+                    <placeholder><Label text="No low-stock products — all good!"/></placeholder>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- ═══════════════════════════════════════════════════════
+             TAB 4 — EXPIRY ALERTS
+        ═══════════════════════════════════════════════════════ -->
+        <Tab text="📅  Expiry Alerts">
+            <VBox spacing="12" style="-fx-padding: 16 0 0 0;">
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="expiryLabel" text=""
+                           style="-fx-text-fill: #c62828; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Refresh" styleClass="btn-secondary"
+                            onAction="#handleExpiryRefresh"/>
+                </HBox>
+
+                <TableView fx:id="expiryTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="exColName"     text="Product"   prefWidth="220"/>
+                        <TableColumn fx:id="exColCategory" text="Category"  prefWidth="140"/>
+                        <TableColumn fx:id="exColStock"    text="Stock"     prefWidth="80"/>
+                        <TableColumn fx:id="exColExpiry"   text="Expiry Date" prefWidth="110"/>
+                        <TableColumn fx:id="exColAlert"    text="Alert"     prefWidth="160"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No expiry alerts — all products within safe date range."/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+</VBox>

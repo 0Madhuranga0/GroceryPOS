@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.gp.grocerypos.controller.users.UserDialogController"
+      spacing="14" prefWidth="440"
+      style="-fx-background-color: white; -fx-padding: 24;">
+
+    <Label fx:id="titleLabel" text="Add User" styleClass="page-title"/>
+    <Label fx:id="errorLabel" text="" wrapText="true" visible="false"
+           style="-fx-text-fill: #c62828; -fx-font-size: 12px;
+                  -fx-background-color: #fdecea; -fx-padding: 8 12;
+                  -fx-background-radius: 4;" maxWidth="390"/>
+
+    <!-- Username + Full Name -->
+    <HBox spacing="12">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Username *" styleClass="login-field-label"/>
+            <TextField fx:id="usernameField" promptText="Login username"
+                       styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Full Name *" styleClass="login-field-label"/>
+            <TextField fx:id="fullNameField" promptText="Display name"
+                       styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+
+    <!-- Email + Phone -->
+    <HBox spacing="12">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Email" styleClass="login-field-label"/>
+            <TextField fx:id="emailField" promptText="Email address"
+                       styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Phone" styleClass="login-field-label"/>
+            <TextField fx:id="phoneField" promptText="Phone number"
+                       styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+
+    <!-- Role + Status -->
+    <HBox spacing="12">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Role *" styleClass="login-field-label"/>
+            <ComboBox fx:id="roleCombo" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="4" prefWidth="150">
+            <Label text="Status" styleClass="login-field-label"/>
+            <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+
+    <Separator/>
+
+    <!-- Password -->
+    <Label fx:id="passwordSectionLabel" text="Password *" styleClass="login-field-label"/>
+    <HBox spacing="12">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Password" styleClass="login-field-label"/>
+            <PasswordField fx:id="passwordField" promptText="Min 6 characters"
+                           styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label text="Confirm Password" styleClass="login-field-label"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Repeat password"
+                           styleClass="text-field" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <padding><Insets top="8"/></padding>
+        <Button fx:id="btnCancel" text="Cancel" styleClass="btn-secondary" onAction="#handleCancel"/>
+        <Button fx:id="btnSave"   text="Save"   styleClass="btn-primary"   onAction="#handleSave" defaultButton="true"/>
+    </HBox>
+</VBox>
